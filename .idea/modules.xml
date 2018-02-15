@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NJTransit-New.iml" filepath="$PROJECT_DIR$/.idea/modules/NJTransit-New.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NJTransit-New_main.iml" filepath="$PROJECT_DIR$/.idea/modules/NJTransit-New_main.iml" group="NJTransit-New" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NJTransit-New_test.iml" filepath="$PROJECT_DIR$/.idea/modules/NJTransit-New_test.iml" group="NJTransit-New" />
+    </modules>
+  </component>
+</project>

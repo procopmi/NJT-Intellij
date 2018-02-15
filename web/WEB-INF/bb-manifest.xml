@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<manifest xmlns="http://www.blackboard.com/bb-manifest-plugin"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.blackboard.com/bb-manifest-plugin https://maven.blackboard.com/content/repositories/releases/blackboard/platform/bb-manifest-plugin/9.1.110082.0/bb-manifest-plugin-9.1.110082.0.xsd">-->
+<manifest>
+    <plugin>
+        <name value="UTI: Student NJ TRANSIT Discount""/>
+        <handle value="utinjtransit"/>
+        <description value="UTI NJ TRANSIT link"/>
+        <!---<default-locale value="en_US"/>-->
+
+        <version value="1.0.0"/>
+        <requires>
+            <bbversion value="7.0.0"/>
+        </requires>
+
+        <vendor>
+            <id value="uti"/>
+            <name value="UTI"/>
+            <url value="http://www.uti.edu/"/>
+            <description value="NJ TRANSIT"/>
+        </vendor>
+        <http-actions>
+            <config value="admin/config.jsp"/>
+        </http-actions>
+
+        <!-- These two JSPs are displayed when the "remove" and "properties" buttons -->
+        <!-- are pressed on the Building Blocks administration page. -->
+        <!--
+        <http-actions>
+          <config value="admin/configure.jsp"/>
+          <remove value="admin/remove.jsp"/>
+        </http-actions>
+         -->
+
+        <!-- Tools defined by this extension -->
+        <!--<application handle="PhotoRoster" type="course" name="Photo Roster">-->
+        <!--                        <type value="tool"/>-->
+<!--        <application-defs>
+            <application handle="PhotoRoster" type="shared" use-ssl="false" name="Photo Roster" can-allow-guest="true" small-icon="" large-icon="">
+                <description>Application installed as part of the sample plugin</description>
+                <links>
+                    <link>
+                        <type value="course_tool"/>
+                        <name value="Photo Roster"/>
+                        <url value="photoroster.jsp"/>
+                        <description value="Demonstrates adding tools to the system administration tool."/>
+                        <icons>
+                            <listitem value="images/icon.gif"/>
+                        </icons>
+                    </link>
+                </links>
+            </application>
+        </application-defs>-->
+
+        <!-- Portal Module Definitions -->
+		<module-defs>
+      		<module-type ext-ref="NJTRANSITMOD" title="NJ TRANSIT Portal Module" uicreatable="false">
+        			<jsp-dir>module</jsp-dir>
+        			<jsp>
+          				<view>view.jsp</view>
+          			</jsp>
+      		</module-type>
+			<module type="NJTRANSITMOD" isadmin="true" useraddable="true" isdeletable="true" isdetachable="true" title="On the Go with NJ TRANSIT!">
+				<description>NJ TRANSIT Student Discount</description>
+				<ExtraInfo/>
+				<module-groups>
+					<module-group id="STUDENT" />
+				</module-groups>
+				<jsp-dir>module</jsp-dir>
+			</module>
+		</module-defs>
+        <!--
+		<module-defs>
+          <module-type ext-ref="mnmt-module" title="mnmt-module.title" uicreatable="false">
+            <jsp-dir>module</jsp-dir>
+            <jsp>
+              <view>view.jsp</view>
+            </jsp>
+          </module-type>
+          <module type="mnmt-module" isadmin="true" useraddable="true" isdeletable="true" isdetachable="true" title="Monument U.">
+            <description></description>
+            <ExtraInfo>
+              <property key="someKey" type="String"></property>
+            </ExtraInfo>
+            <module-groups>
+              <module-group id="Everyone" />
+            </module-groups>
+          </module>
+        </module-defs>
+        -->
+
+        <!-- Custom Content Types -->
+        <!--
+        <content-handlers>
+          <content-handler>
+            <name value="content_handler.name" />
+            <handle value="resource/x-mnmt-content" />
+            <http-actions>
+              <create value="content/create.jsp" />
+              <modify value="content/edit.jsp" />
+              <view value="content/view.jsp" />
+              <cpview value="content/cpview.jsp" />
+            </http-actions>
+            <application value="mnmt-app1"/>
+            <icons>
+              <listitem value="images/50x50.gif" />
+            </icons>
+            <types>
+              <type>
+                <action-type value="collaborate" />
+              </type>
+            </types>
+          </content-handler>
+        </content-handlers>
+        -->
+
+        <!-- Add custom score providers for gradeable items.
+        <score-providers>
+          <score-provider>
+            <name value="example-score-provider" />
+            <handle value="resource/x-mnmt-score" />
+            <review-action value="" />
+            <grade-action value="" />
+            <allow-multiple value="false" />
+            <attempt-based value="false" />
+          </score-provider>
+        </score-providers>
+        -->
+
+        <!-- Add custom schema elements to Learn.
+             http://help.blackboard.com/b2/schema.html
+        <schema-dirs>
+          <schema-dir dir-name="main" />
+        </schema-dirs>
+        -->
+
+        <!-- Create custom entitlements that are automatically applied to any
+             role that already has the "template" entitlement.
+        <entitlements>
+          <entitlement uid="course.mnmt-app.EXECUTE"
+                       label="course.mnmt-app.EXECUTE.label"
+                       type="Course"
+                       template="course.blog.grade.EXECUTE" />
+        </entitlements>
+        -->
+
+        <!-- Code permissions required for proper operation -->
+        <permissions>
+            <permission type="attribute" name="user.authinfo" actions="get" />
+            <permission type="attribute" name="user.personalinfo" actions="get" />
+            <permission type="java.io.FilePermission" name="/usr/local/blackboard/content/vi/bb_bb60/plugins/uti-utinjtransit/config/-" actions="read,write,delete,execute"/>
+            <permission type="java.io.FilePermission" name="/usr/local/blackboard/logs/-" actions="read,write,delete,execute"/>
+            <!--
+            <permission type="java.io.FilePermission" name="/-" actions="read,write,delete"/>
+            <permission type="attribute" name="user.personalinfo" actions="get"/>
+            <permission type="attribute" name="Group" actions="get"/>
+            <permission type="attribute" name="GroupMembership" actions="get"/>
+            <permission type="attribute" name="user.authinfo" actions="get,set"/>
+            <permission type="attribute" name="user.personalinfo" actions="get,set"/>
+            <permission type="blackboard.data.AttributePermission" name="user.*" actions="get,set"/>
+            <permission type="socket" name="*" actions="connect,resolve"/>
+            <permission type="runtime" name="accessDeclaredMembers" actions=""/>
+            <permission type="persist" name="User" actions="load,persist,delete"/>
+            <permission type="persist" name="Course" actions="load,persist,delete"/>
+            <permission type="persist" name="CourseMembership" actions="load,persist,delete"/>
+            <permission type="java.util.PropertyPermission" name="*" actions="read,write"/>
+            <permission type="java.security.AllPermission" name="*" actions="read,write"/>
+            -->
+            <!-- We need these permissions to allow Spring to auto-discover -->
+            <!-- and wire beans together and Hibernate to interact with objects. -->
+            <!--
+            <permission type="java.lang.reflect.ReflectPermission" name="suppressAccessChecks" />
+            <permission type="java.lang.RuntimePermission" name="accessDeclaredMembers" />
+            <permission type="java.lang.RuntimePermission" name="createClassLoader" />
+            <permission type="java.lang.RuntimePermission" name="setContextClassLoader" />
+            <permission type="java.io.FilePermission" name="${java.home}/lib/*" actions="read" />
+            -->
+        </permissions>
+
+    </plugin>
+</manifest>

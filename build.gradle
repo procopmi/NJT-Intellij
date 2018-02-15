@@ -1,0 +1,51 @@
+group 'edu.uti'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+ext {
+    learnVersion = "9.1.120113.0"
+    deployServer = "localhost:8000"
+    deployInstance = "BBLEARN"
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://maven.blackboard.com/content/repositories/releases/" }
+    // maven { url "https://mvnrepository.com/artifact/commons-codec/commons-codec" }
+   // maven { url "https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload"}
+
+}
+
+configurations {
+    buildUtils
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    providedCompile "javax.servlet:servlet-api:2.5", "javax.servlet.jsp:jsp-api:2.1"
+    providedCompile group: 'commons-codec', name: 'commons-codec', version: '1.10'
+    providedCompile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.3.3'
+    // Dependencies are libraries needed to build, but should not be included in the B2 WAR.
+    // You should NEVER include Learn JARs (other than webapis) in your B2.
+    providedCompile( "blackboard.platform:bb-platform:${learnVersion}" ) { transitive = false }
+    providedCompile( "blackboard.platform:bb-taglibs:${learnVersion}" ) { transitive = false }
+    providedCompile( "blackboard.platform:bb-cms-admin:${learnVersion}" ) { transitive = false }
+
+    buildUtils "org.oscelot:b2deploy-task:0.1.0"
+}
+
+task deployB2( dependsOn: "war" ) << {
+    ant.taskdef( name: "b2deploy", classname: "org.oscelot.ant.B2DeployTask", classpath: project.configurations.buildUtils.asPath )
+    ant.b2deploy( localfilepath: project.war.archivePath, host: project.ext.deployServer, courseorgavailable: 'true', clean: 'true', webappName: 'bb-starting-block-' + project.ext.deployInstance )
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.1'
+}
